@@ -3,4 +3,4 @@ permalink: /:year/:title/
 paginate: 10 
 exclude: 
 name: jarodl
-baseurl: jarodl.github.com
+baseurl: http://raw.github.com/jarodl/jarodl.github.com/gh-pages
