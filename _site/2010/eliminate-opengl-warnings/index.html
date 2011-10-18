@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Eliminate iPhone OpenGLES project warnings - jarodl</title>
+
+	<link rel="stylesheet" href="jarodl.github.com/bootstrap.min.css">
+	<link rel="stylesheet" href="jarodl.github.com/css.css">
+</head>
+<body>
+
+	
+		
+	
+
+	<header>
+	<h1><a href="jarodl.github.com">jarodl</a></h1>
+	</header>
+
+	<div class="container">
+
+
+  
+    <div class="span11 content">
+		<div class="page-header">
+		 <h3 class="title">Eliminate iPhone OpenGLES project warnings</h3>
+		</div>
+		<div class="post_content">
+			
+			<p>When starting a new universal iOS OpenGL project I usually select the &#8216;Window-based Application&#8217; template and then copy over the files from the &#8216;OpenGL ES Application&#8217; template. After doing this a few warnings show up regarding the OpenGL ES 2.0 shader files.</p>
+
+<pre><code>warning: no rule to process file &#39;$(PROJECT_DIR)/Shader.fsh&#39; of type sourcecode.glsl for architecture i386
+warning: no rule to process file &#39;$(PROJECT_DIR)/Shader.vsh&#39; of type sourcecode.glsl for architecture i386</code></pre>
+
+<p>I noticed a few other people having this issue on <a href='http://inkubator.idevgames.com/forums/thread-397.html'>idevgames.com</a> and <a href='http://www.iphonedevsdk.com/forum/iphone-sdk-game-development/39349-opengl-es-shader-bug-only-iphone-3gs.html'>iphonedevsdk.com</a> so here is how to fix it.</p>
+
+<p>When you add the two shader files (Shader.fsh and Shader.vsh) add them to the application target. After they are copied into your project click the dropdown arrow next to the application target in the Targets folder of the group tree. You will see three folders. If you are getting the above warnings the shader files are probably in the &#8216;Compile Sources&#8217; folder. Move them to the &#8216;Copy Bundle Resources&#8217; folder and the warning should go away.</p>
+			
+		</div>
+    </div><!--content-->
+
+	<div class="span5 sidebar">
+		<h6>12/28/2010</h6>
+		
+	</div>
+
+	</div><!--container-->
+
+</body>
+</html>
+

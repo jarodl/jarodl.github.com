@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Elapsed Time String in Objective-C - jarodl</title>
+
+	<link rel="stylesheet" href="jarodl.github.com/bootstrap.min.css">
+	<link rel="stylesheet" href="jarodl.github.com/css.css">
+</head>
+<body>
+
+	
+		
+	
+
+	<header>
+	<h1><a href="jarodl.github.com">jarodl</a></h1>
+	</header>
+
+	<div class="container">
+
+
+  
+    <div class="span11 content">
+		<div class="page-header">
+		 <h3 class="title">Elapsed Time String in Objective-C</h3>
+		</div>
+		<div class="post_content">
+			
+			<p>Here&#8217;s a simple but useful NSString category for getting the elapsed time from a given date until now and formatting it (&#8220;posted 5 minutes ago&#8221;). You can learn more about categories <a href='http://cocoadevcentral.com/d/learn_objectivec/'>here</a>.</p>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+
+@interface NSString (Extensions)
++ (NSString *)timeAgoStringFromDate:(NSDate *)fromDate;
+@end
+
+#import &quot;NSString+Extensions.h&quot;
+
+#define FormatterString @&quot;%i %@ ago&quot;
+
+@implementation NSString (Extensions)
+
++ (NSString *)timeAgoStringFromDate:(NSDate *)fromDate
+{
+    NSUInteger desiredComponents = NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *elapsedTime = [[NSCalendar currentCalendar] components:desiredComponents 
+                                                                         fromDate:fromDate
+                                                                           toDate:[NSDate date]
+                                                                          options:0];
+    NSString *timeAgo = nil;
+    
+    if ([elapsedTime year]) {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime year],
+                   ([elapsedTime year] == 1) ? @&quot;year&quot; : @&quot;years&quot;];
+    }
+    else if ([elapsedTime month]) {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime month],
+                   ([elapsedTime month] == 1) ? @&quot;month&quot; : @&quot;months&quot;];
+    }
+    else if ([elapsedTime week]) {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime week],
+                   ([elapsedTime week] == 1) ? @&quot;week&quot; : @&quot;weeks&quot;];
+    }
+    else if ([elapsedTime day]) {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime day],
+                   ([elapsedTime day] == 1) ? @&quot;day&quot; : @&quot;days&quot;];
+    }
+    else if ([elapsedTime hour]) {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime hour],
+                   ([elapsedTime hour] == 1) ? @&quot;hour&quot; : @&quot;hours&quot;];
+    }
+    else if ([elapsedTime minute]) {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime minute],
+                   ([elapsedTime minute] == 1) ? @&quot;minute&quot; : @&quot;minutes&quot;];
+    }
+    else {
+        timeAgo = [NSString stringWithFormat:FormatterString, [elapsedTime second],
+                   ([elapsedTime second] == 1) ? @&quot;second&quot; : @&quot;seconds&quot;];
+    }
+
+    return timeAgo;
+}
+
+@end</code></pre>
+
+<h4 id='potential_problems'>Potential Problems</h4>
+
+<p>Make sure both dates are translated to the correct time zone. If you start seeing wrong values (&#8220;this was posted -4 hours ago!&#8221;) then that&#8217;s probably what&#8217;s going on.</p>
+
+<pre><code>// set the time zone of the date value used
+[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@&quot;GMT&quot;]];
+
+// To set the time zone of the calendar that we use to get the elapsed time, do this:
+NSCalendar *cal = [NSCalendar currentCalendar];
+[cal setTimeZone:[NSTimeZone localTimeZone]];
+NSDateComponents *elapsedTime = [cal components:desiredComponents fromDate:fromDate toDate:[NSDate date] options:0];</code></pre>
+
+<p>For more information check out the <a href='http://developer.apple.com/library/ios/#documentation/cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i'>Apple time &amp; date docs</a>.</p>
+			
+		</div>
+    </div><!--content-->
+
+	<div class="span5 sidebar">
+		<h6>12/06/2010</h6>
+		
+	</div>
+
+	</div><!--container-->
+
+</body>
+</html>
+

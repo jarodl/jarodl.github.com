@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Using the Disqus API from Python - jarodl</title>
+
+	<link rel="stylesheet" href="jarodl.github.com/bootstrap.min.css">
+	<link rel="stylesheet" href="jarodl.github.com/css.css">
+</head>
+<body>
+
+	
+		
+	
+
+	<header>
+	<h1><a href="jarodl.github.com">jarodl</a></h1>
+	</header>
+
+	<div class="container">
+
+
+  
+    <div class="span11 content">
+		<div class="page-header">
+		 <h3 class="title">Using the Disqus API from Python</h3>
+		</div>
+		<div class="post_content">
+			
+			<pre><code># Init with your API key. To find out your key visit
+# http://disqus.com/api/get_my_key while logged in to disqus.com.
+disqus = Disqus(secret_key)
+
+# Get a list of forums that user owns
+disqus.forum_list()
+
+# Get a list of posts on a forum
+disqus.forum_posts(forum_id=1)
+
+# Get a list of categories on a forum
+disqus.categories_list(forum_id=2)
+
+# Get a list of threads on a forum
+disqus.thread_list(forum_id=2)
+
+# Get a list of updated threads on a forum
+disqus.updated_threads(forum_id=1)
+
+# Get a list of posts on a thread
+disqus.thread_posts(thread_id=1)
+
+# Get a particular thread or create it if it doesn&#39;t exist
+disqus.thread_by_identifier(forum_id=1, identifier=&#39;my_thread&#39;,
+                        title=&#39;My Killer Thread&#39;)
+# or
+disqus.thread_by_url(url=&#39;http://my.awesome/thread&#39;)
+
+# Update a thread
+disqus.update_thread(forum_id=1, thread_id=4)
+
+# Create a new post
+disqus.create_post(site_id=1, thread_id=4,
+                  message=&#39;Dope API, yo!&#39;)</code></pre>
+
+<p>The code is on <a href='https://github.com/jarodl/disqus.py'>Github</a>.</p>
+			
+		</div>
+    </div><!--content-->
+
+	<div class="span5 sidebar">
+		<h6>08/07/2010</h6>
+		
+	</div>
+
+	</div><!--container-->
+
+</body>
+</html>
+
